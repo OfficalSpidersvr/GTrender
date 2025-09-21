@@ -1,36 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GorillaTag Renderer</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>🦍 GorillaTag Renderer</h1>
+  <main>
+    <header>
+      <h1>🦍 GorillaTag Renderer</h1>
+      <p>Stel je eigen gorilla samen met kleurcodes, poses en cosmetics en download direct een render.</p>
+    </header>
 
-  <div id="controls">
-    <h2>Kleur (RGB 0–9)</h2>
-    <label>R: <input type="range" id="r" min="0" max="9" value="5"></label>
-    <label>G: <input type="range" id="g" min="0" max="9" value="5"></label>
-    <label>B: <input type="range" id="b" min="0" max="9" value="5"></label>
+    <div class="layout">
+      <section id="controls" aria-label="Renderer instellingen">
+        <div class="panel" aria-labelledby="color-heading">
+          <h2 id="color-heading">Kleur (RGB 0–9)</h2>
+          <div class="slider" data-channel="r">
+            <label for="r">Rood</label>
+            <input type="range" id="r" min="0" max="9" value="5" aria-describedby="r-value">
+            <output id="r-value" for="r">5</output>
+          </div>
+          <div class="slider" data-channel="g">
+            <label for="g">Groen</label>
+            <input type="range" id="g" min="0" max="9" value="5" aria-describedby="g-value">
+            <output id="g-value" for="g">5</output>
+          </div>
+          <div class="slider" data-channel="b">
+            <label for="b">Blauw</label>
+            <input type="range" id="b" min="0" max="9" value="5" aria-describedby="b-value">
+            <output id="b-value" for="b">5</output>
+          </div>
+          <div class="color-preview" id="color-preview" role="img" aria-label="Voorbeeld van de geselecteerde kleur"></div>
+          <p id="color-code" class="color-code">RGB (5, 5, 5) • Hex #7F7F7F</p>
+          <button id="random-color" type="button">🎨 Random kleur</button>
+        </div>
 
-    <h2>Pose</h2>
-    <select id="pose">
-      <option value="default">Default</option>
-      <option value="pose2">Pose 2</option>
-    </select>
+        <div class="panel" aria-labelledby="pose-heading">
+          <h2 id="pose-heading">Pose</h2>
+          <select id="pose" aria-label="Selecteer een gorilla pose"></select>
+        </div>
 
-    <h2>Cosmetics</h2>
-    <label><input type="checkbox" id="hat"> Hat</label>
+        <div class="panel" aria-labelledby="cosmetics-heading">
+          <h2 id="cosmetics-heading">Cosmetics</h2>
+          <p class="hint">Combineer accessoires voor jouw unieke look.</p>
+          <div id="cosmetics"></div>
+        </div>
 
-    <button id="download">Download Screenshot</button>
-  </div>
+        <button id="download" type="button" class="primary">⬇️ Download screenshot</button>
+      </section>
 
-  <canvas id="canvas"></canvas>
+      <section class="canvas-wrap" aria-label="3D preview">
+        <canvas id="canvas"></canvas>
+      </section>
+    </div>
+  </main>
 
-  <!-- Laad THREE en GLTFLoader gewoon globaal -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/controls/OrbitControls.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
