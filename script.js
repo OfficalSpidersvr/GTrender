@@ -1,30 +1,30 @@
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.module.js";
-import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.158.0/examples/jsm/loaders/GLTFLoader.js";
 let scene, camera, renderer, gorilla, hat;
+let THREEjs, LoaderClass;
 
-init();
-animate();
+export function init(THREE, GLTFLoader) {
+  THREEjs = THREE;
+  LoaderClass = GLTFLoader;
 
-function init() {
   // Scene setup
-  scene = const loader = new GLTFLoader();
-  camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+  scene = new THREEjs.Scene();
+  camera = new THREEjs.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
   camera.position.z = 3;
 
-  renderer = new THREE.WebGLRenderer({ canvas: document.getElementById("canvas"), antialias: true });
-  renderer.setSize(window.innerWidth*0.8, window.innerHeight*0.6);
+  renderer = new THREEjs.WebGLRenderer({ canvas: document.getElementById("canvas"), antialias: true });
+  renderer.setSize(window.innerWidth * 0.8, window.innerHeight * 0.6);
 
   // Lights
-  const light = new THREE.DirectionalLight(0xffffff, 1);
+  const light = new THREEjs.DirectionalLight(0xffffff, 1);
   light.position.set(5, 5, 5);
   scene.add(light);
-  scene.add(new THREE.AmbientLight(0x404040));
+  scene.add(new THREEjs.AmbientLight(0x404040));
 
   // Load Gorilla model
-  const loader = new THREE.GLTFLoader();
-  loader.load(".assets/gorilla.glb", (gltf) => {
+  const loader = new LoaderClass();
+  loader.load("./assets/gorilla.glb", (gltf) => {
     gorilla = gltf.scene;
     scene.add(gorilla);
+    updateColor();
   });
 
   // Event listeners
@@ -44,25 +44,23 @@ function updateColor() {
   let b = document.getElementById("b").value * 28;
   gorilla.traverse((child) => {
     if (child.isMesh) {
-      child.material.color.setRGB(r/255, g/255, b/255);
+      child.material.color.setRGB(r / 255, g / 255, b / 255);
     }
   });
 }
 
 function changePose(e) {
-  const value = e.target.value;
-  const loader = new THREE.GLTFLoader();
+  const loader = new LoaderClass();
+  if (gorilla) scene.remove(gorilla);
 
-  if (value === "pose2") {
-    loader.load("assets/pose2.glb", (gltf) => {
-      if (gorilla) scene.remove(gorilla);
+  if (e.target.value === "pose2") {
+    loader.load("./assets/pose2.glb", (gltf) => {
       gorilla = gltf.scene;
       scene.add(gorilla);
       updateColor();
     });
   } else {
-    loader.load("assets/gorilla.glb", (gltf) => {
-      if (gorilla) scene.remove(gorilla);
+    loader.load("./assets/gorilla.glb", (gltf) => {
       gorilla = gltf.scene;
       scene.add(gorilla);
       updateColor();
@@ -71,18 +69,15 @@ function changePose(e) {
 }
 
 function toggleHat(e) {
-  const checked = e.target.checked;
-  const loader = new THREE.GLTFLoader();
-  if (checked) {
-    loader.load("assets/hat.glb", (gltf) => {
+  const loader = new LoaderClass();
+  if (e.target.checked) {
+    loader.load("./assets/hat.glb", (gltf) => {
       hat = gltf.scene;
       scene.add(hat);
     });
-  } else {
-    if (hat) {
-      scene.remove(hat);
-      hat = null;
-    }
+  } else if (hat) {
+    scene.remove(hat);
+    hat = null;
   }
 }
 
@@ -93,7 +88,7 @@ function downloadImage() {
   link.click();
 }
 
-function animate() {
+export function animate() {
   requestAnimationFrame(animate);
   if (gorilla) gorilla.rotation.y += 0.01;
   renderer.render(scene, camera);
