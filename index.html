@@ -1,7 +1,35 @@
-<!doctype html>
-<html>
-  <head><meta charset="utf-8"><title>Test</title></head>
-  <body style="font:16px system-ui; padding:20px">
-    It works 🎉
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GorillaTag Renderer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>🦍 GorillaTag Renderer</h1>
+
+  <div id="controls">
+    <h2>Kleur (RGB 0–9)</h2>
+    <label>R: <input type="range" id="r" min="0" max="9" value="5"></label>
+    <label>G: <input type="range" id="g" min="0" max="9" value="5"></label>
+    <label>B: <input type="range" id="b" min="0" max="9" value="5"></label>
+
+    <h2>Pose</h2>
+    <select id="pose">
+      <option value="default">Default</option>
+      <option value="pose2">Pose 2</option>
+    </select>
+
+    <h2>Cosmetics</h2>
+    <label><input type="checkbox" id="hat"> Hat</label>
+
+    <button id="download">Download Screenshot</button>
+  </div>
+
+  <canvas id="canvas"></canvas>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="script.js"></script>
+</body>
 </html>
