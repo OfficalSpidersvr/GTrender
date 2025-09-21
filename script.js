@@ -20,7 +20,7 @@ function init() {
 
   // Load Gorilla model
   const loader = new THREE.GLTFLoader();
-  loader.load("assets/gorilla.glb", (gltf) => {
+  loader.load(".assets/gorilla.glb", (gltf) => {
     gorilla = gltf.scene;
     scene.add(gorilla);
   });
