@@ -28,8 +28,13 @@
 
   <canvas id="canvas"></canvas>
 
-  <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/loaders/GLTFLoader.js"></script>
+<script type="module">
+  import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.module.js";
+  import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.158.0/examples/jsm/loaders/GLTFLoader.js";
+
+  // laad jouw script direct hier als module
+  import "./script.js";
+</script>
   <script src="script.js"></script>
 </body>
 </html>
