@@ -1,3 +1,5 @@
+import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.module.js";
+import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.158.0/examples/jsm/loaders/GLTFLoader.js";
 let scene, camera, renderer, gorilla, hat;
 
 init();
@@ -5,7 +7,7 @@ animate();
 
 function init() {
   // Scene setup
-  scene = new THREE.Scene();
+  scene = const loader = new GLTFLoader();
   camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
   camera.position.z = 3;
 
