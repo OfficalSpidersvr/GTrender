@@ -28,15 +28,9 @@
 
   <canvas id="canvas"></canvas>
 
-  <!-- Laad THREE.js en GLTFLoader als modules -->
-  <script type="module">
-    import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.module.js";
-    import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.158.0/examples/jsm/loaders/GLTFLoader.js";
-
-    import { init, animate } from "./script.js";
-
-    init(THREE, GLTFLoader);
-    animate();
-  </script>
+  <!-- Laad THREE en GLTFLoader gewoon globaal -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
