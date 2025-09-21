@@ -1,0 +1,22 @@
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: #111;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#controls {
+  margin: 20px;
+  background: #222;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+canvas {
+  width: 80vw;
+  height: 60vh;
+  border: 1px solid #444;
+}
