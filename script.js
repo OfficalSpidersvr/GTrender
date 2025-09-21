@@ -1,33 +1,29 @@
 let scene, camera, renderer, gorilla, hat;
-let THREEjs, LoaderClass;
 
-export function init(THREE, GLTFLoader) {
-  THREEjs = THREE;
-  LoaderClass = GLTFLoader;
+init();
+animate();
 
-  // Scene setup
-  scene = new THREEjs.Scene();
-  camera = new THREEjs.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+function init() {
+  scene = new THREE.Scene();
+  camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
   camera.position.z = 3;
 
-  renderer = new THREEjs.WebGLRenderer({ canvas: document.getElementById("canvas"), antialias: true });
+  renderer = new THREE.WebGLRenderer({ canvas: document.getElementById("canvas"), antialias: true });
   renderer.setSize(window.innerWidth * 0.8, window.innerHeight * 0.6);
 
-  // Lights
-  const light = new THREEjs.DirectionalLight(0xffffff, 1);
+  const light = new THREE.DirectionalLight(0xffffff, 1);
   light.position.set(5, 5, 5);
   scene.add(light);
-  scene.add(new THREEjs.AmbientLight(0x404040));
+  scene.add(new THREE.AmbientLight(0x404040));
 
-  // Load Gorilla model
-  const loader = new LoaderClass();
+  // Gorilla model
+  const loader = new THREE.GLTFLoader();
   loader.load("./assets/gorilla.glb", (gltf) => {
     gorilla = gltf.scene;
     scene.add(gorilla);
     updateColor();
   });
 
-  // Event listeners
   document.getElementById("r").addEventListener("input", updateColor);
   document.getElementById("g").addEventListener("input", updateColor);
   document.getElementById("b").addEventListener("input", updateColor);
@@ -50,7 +46,7 @@ function updateColor() {
 }
 
 function changePose(e) {
-  const loader = new LoaderClass();
+  const loader = new THREE.GLTFLoader();
   if (gorilla) scene.remove(gorilla);
 
   if (e.target.value === "pose2") {
@@ -69,7 +65,7 @@ function changePose(e) {
 }
 
 function toggleHat(e) {
-  const loader = new LoaderClass();
+  const loader = new THREE.GLTFLoader();
   if (e.target.checked) {
     loader.load("./assets/hat.glb", (gltf) => {
       hat = gltf.scene;
@@ -88,7 +84,7 @@ function downloadImage() {
   link.click();
 }
 
-export function animate() {
+function animate() {
   requestAnimationFrame(animate);
   if (gorilla) gorilla.rotation.y += 0.01;
   renderer.render(scene, camera);
